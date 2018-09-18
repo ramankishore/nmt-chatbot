@@ -7,21 +7,20 @@ Introduction
 
 nmt-chatbot is the implementation of chatbot using NMT - Neural Machine Translation (seq2seq).
 
-Code is built on top of NMT but because of lack of available interfaces, some things are "hacked", and parts of the code had to be copied into that project (and will have to be mantained to follow changes in NMT).
-
-This project forks NMT. We had to make a change in code allowing use with stable version of TensorFlow (1.4). That allowed us also to fix a bug before official patch.
-
-
-
 Setup
 -------------
 
 Steps to setup project for your needs:
 It is *highly* recommended that you use Python 3.6+. Python 3.4 and 3.5 is likely to work in Linux, but you will eventually hit encoding errors with 3.5 or lower in a Windows environment.
 
- 1. ```$ git clone --recursive https://github.com/daniel-kukiela/nmt-chatbot```
+ 1. ```$ git clone --recursive "repository"```
  2. ```$ cd nmt-chatbot```
- 3. ```$ pip install -r requirements.txt``` Tensorflow-gpu is one of the requirements. You also need CUDA Toolkit 8.0 and cuDNN 6.1. (Windows tutorial: https://www.youtube.com/watch?v=r7-WPbx8VuY  Linux tutorial: https://pythonprogramming.net/how-to-cuda-gpu-tensorflow-deep-learning-tutorial/)
+ 3. ```$ pip install -r requirements.txt``` 
+
+  - Tensorflow-gpu is one of the requirements. You also need CUDA Toolkit 8.0 and cuDNN 6.1. 
+    + Windows tutorial: https://www.youtube.com/watch?v=r7-WPbx8VuY
+    + Linux tutorial: https://pythonprogramming.net/how-to-cuda-gpu-tensorflow-deep-learning-tutorial/
+
  4. ```$ cd setup```
  5. (optional) edit settings.py to your liking. These are a decent starting point for ~4GB of VRAM, you should first start by trying to raise vocab if you can. 
  6. (optional) Edit text files containing rules in setup directory
@@ -29,7 +28,6 @@ It is *highly* recommended that you use Python 3.6+. Python 3.4 and 3.5 is likel
  8. ```$ python prepare_data.py``` ...Run setup/prepare_data.py - new folder called "data" will be created with prepared training data
  9. ```$ cd ../```
  10. ```$ python train.py``` Begin training
-
 
 
 Rules files
@@ -45,8 +43,6 @@ Setup folder contains multiple "rules" files (All of them are regex-based:
  - protected_phrases.txt - ensures that matching phrases will remain untouched when building vocab file
 
 
-
-
 Tests
 -------------
 
@@ -55,8 +51,6 @@ Every rules file has related test script. Those test scripts might be treated as
 It's important to check everything before training new model. Even slight change might break something.
 
 Test scripts will display check status, checked sentence and evetually check result (if diffrent than assumed).
-
-
 
 
 More detailed informations about training a model
@@ -77,15 +71,12 @@ setup/prepare_data.py:
 train.py - starts training process
 
 
-
-
 Utils
 -------------
 
 utils/run_tensorboard.py is easy to use wrapper starting tensorboard with model folder
 
 utils/pairing_testing_outputs.py - joins model/output_dev file with data/tst2012.form file and prints result to a console allowing easy check if things are going ok during training. Console will consist of input phrase, inferenced output frame and separator.
-
 
 
 Inference
@@ -115,6 +106,7 @@ It is also possible to process batch of the questions by simply using command re
 or:
 
     python inference.py < input_file > output_file
+
 
 Importing nmt-chatbot
 -------------
@@ -148,6 +140,5 @@ With list of questions function will return list of dictionaries.
 For every empty question function will return `None` instead of result dictionary.
 
 With `include_blacklisted` set to false funtion will return either -1 or 1 for the score (and related to that score index)
-
 
 ----------
